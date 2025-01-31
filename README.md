@@ -59,4 +59,35 @@ bias=mean(boot_skewness)-sk
 bias
 sd=sd(boot_skewness)
 sd
+#q.2
+x=c(24,26,32,36,43,52,62,56,52,21)
+x
+y=c(22,28,5,18,14,14,8,8,10,24)
+y
+co=cor(x,y)
+co
+n=10
+boot_co=numeric(n)
+for (i in 1:n){
+boot_samplex=x[-i]
+boot_sampley=y[-i]
+boot_co[i]=cor(boot_samplex,boot_sampley)
+}
+boot_co
+m=mean(boot_co)
+m
+bias=m-co
+bias
+se=sqrt((n-1)/n*sum((boot_co-m)^2))
+se
+install.packages("boot")
+library(boot)
+jackknife_result <- jackknife(data, mean)
+
+# Print jackknife result
+print(jackknife_result)
+
+#q.4
+x=c(32,4,16,7,12,27)
+y=c(2300,30,1500,150,700,1800)
 
