@@ -31,24 +31,32 @@ bias
 data=c(22,26,58,54,30,35,12,28)
 m=mean(data)
 m
+install.packages("moments")
+library(moments)
 sd=sqrt(var(data))
 sd
 cv=(sd/m)*100
 cv
 n=8
+sk=skewness(data)
+sk
 boot_mean=numeric(n)
 boot_vars=numeric(n)
 boot_cvs=numeric(n)
+boot_skewness=numeric(n)
 for (i in 1:n){
 boot_sample=sample(data,size=length(data),replace=T)
 boot_mean[i]=mean(boot_sample)
 boot_vars[i]=var(boot_sample)
 boot_cvs[i]=(sd(boot_sample))*100/mean(boot_sample)
+boot_skewness[i]=skewness(boot_sample)
 }
 boot_mean
 boot_vars
 boot_cvs
-bias=mean(boot_cvs)-cv
+boot_skewness
+bias=mean(boot_skewness)-sk
 bias
-
+sd=sd(boot_skewness)
+sd
 
